@@ -181,9 +181,9 @@ class BaseAPI(object):
     def do_request(self, payload):
         if self.FCM_REQ_PROXIES:
             response = requests.post(self.FCM_END_POINT, headers=self.request_headers(), data=payload,
-                                     proxies=self.FCM_REQ_PROXIES)
+                                     proxies=self.FCM_REQ_PROXIES, valid=True)
         else:
-            response = requests.post(self.FCM_END_POINT, headers=self.request_headers(), data=payload)
+            response = requests.post(self.FCM_END_POINT, headers=self.request_headers(), data=payload, valid=True)
         if 'Retry-After' in response.headers and int(response.headers['Retry-After']) > 0:
             sleep_time = int(response.headers['Retry-After'])
             time.sleep(sleep_time)
